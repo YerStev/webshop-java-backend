@@ -4,7 +4,7 @@ Alle Bausteine um HTTP Endpunkte zu definieren und zu bestimmen:
 -HTTP Verb: GET, POST, PUT, DELETE (HEAD, OPTIONS, PATCH, TRACE) für die Operationen auf den Ressourcen
 -Request Body
 
-REST: Im Mittelpunkt sind die Ressourcen, also die Entitäten im Projekt
+REST: Im Mittelpunkt sind die Ressourcen, also die Entitäten im Projekt, in Mehrzahl
 Produkte 
 Kunden
 Bestellungen

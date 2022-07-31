@@ -5,6 +5,7 @@ import webservicees.webshop.model.ProductResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductRepository {
 
@@ -41,22 +42,17 @@ public class ProductRepository {
 
     public List<ProductResponse> getAll(String tag) {
 
-
         if (tag == null) return products;
-        tag = tag.toLowerCase();
-        List<ProductResponse> filtered = new ArrayList<>();
 
-        for (ProductResponse p : products) {
-            if (lowerCaseTags(p).contains(tag))
-                filtered.add(p);
-        }
-        return filtered;
+        String tagLowerCase = tag.toLowerCase();
+        return products.stream()
+                .filter(p -> lowerCaseTags(p).contains(tagLowerCase))
+                .collect(Collectors.toList());
     }
 
     private static List<String> lowerCaseTags(ProductResponse p) {
-        List<String> lowerCaseTags = new ArrayList<>();
-        for (String t : p.getTags())
-            lowerCaseTags.add(t.toLowerCase());
-        return lowerCaseTags;
+        return p.getTags().stream()
+                .map(t -> t.toLowerCase())
+                .collect(Collectors.toList());
     }
 }

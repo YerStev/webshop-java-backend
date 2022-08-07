@@ -119,6 +119,64 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "POST order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST order position",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"productId\": \"978e01e1-f56e-48bc-a606-020272d6ca0e\",\n\"quantity\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/orders/0d4b59c1-d14e-4aeb-a8d9-4a08bb251251/positions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"0d4b59c1-d14e-4aeb-a8d9-4a08bb251251",
+						"positions"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -35,4 +35,6 @@ public class ProductCreateRequest {
         this.priceInCent = priceInCent;
         this.tags = tags;
     }
+    public ProductCreateRequest() {
+    }
 }

@@ -1,11 +1,13 @@
 package webservicees.webshop.repository;
 
+import org.springframework.stereotype.Service;
 import webservicees.webshop.model.ProductCreateRequest;
 import webservicees.webshop.model.ProductResponse;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class ProductRepository {
 
     List<ProductResponse> products = new ArrayList<>();

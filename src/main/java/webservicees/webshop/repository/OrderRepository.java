@@ -1,5 +1,6 @@
 package webservicees.webshop.repository;
 
+import org.springframework.stereotype.Service;
 import webservicees.webshop.model.OrderCreateRequest;
 import webservicees.webshop.model.OrderPositionResponse;
 import webservicees.webshop.model.OrderResponse;
@@ -11,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class
-OrderRepository {
+@Service
+public class OrderRepository {
 
     List<OrderResponse> orders = new  ArrayList<>();
 

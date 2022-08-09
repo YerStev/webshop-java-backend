@@ -1,11 +1,13 @@
 package webservicees.webshop.repository;
 
+import org.springframework.stereotype.Service;
 import webservicees.webshop.model.CustomerResponse;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CustomerRepository {
 
     List<CustomerResponse> customers = Arrays.asList(

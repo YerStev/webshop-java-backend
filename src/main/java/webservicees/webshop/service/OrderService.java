@@ -1,5 +1,6 @@
 package webservicees.webshop.service;
 
+import org.springframework.stereotype.Service;
 import webservicees.webshop.model.*;
 import webservicees.webshop.repository.CustomerRepository;
 import webservicees.webshop.repository.OrderPositionRepository;
@@ -9,12 +10,19 @@ import webservicees.webshop.repository.ProductRepository;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class OrderService {
+    private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
+    private final CustomerRepository customerRepository;
+    private final OrderPositionRepository orderPositionRepository;
 
-    OrderRepository orderRepository = new OrderRepository();
-    CustomerRepository customerRepository = new CustomerRepository();
-    OrderPositionRepository orderPositionRepository = new OrderPositionRepository();
-    ProductRepository productRepository = new ProductRepository(); // second instances, requests will not work properly
+    public OrderService(ProductRepository productRepository, OrderRepository orderRepository, CustomerRepository customerRepository, OrderPositionRepository orderPositionRepository) {
+        this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
+        this.customerRepository = customerRepository;
+        this.orderPositionRepository = orderPositionRepository;
+    }
 
     public OrderResponse createOrder(OrderCreateRequest request) {
         Optional<CustomerResponse> customer = customerRepository.findById(request.getCustomerId());

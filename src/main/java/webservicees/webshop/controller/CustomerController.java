@@ -11,9 +11,11 @@ import java.util.Optional;
 
 @RestController
 public class CustomerController {
+    CustomerRepository customerRepository;
 
-    CustomerRepository customerRepository = new CustomerRepository();
-
+    public CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
     @GetMapping("/customers/{id}")
     public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable String id){
         Optional<CustomerResponse> customer = customerRepository.findById(id);

@@ -13,7 +13,11 @@ import webservicees.webshop.service.OrderService;
 @RestController
 public class OrderController {
 
-    OrderService orderService = new OrderService();
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @PostMapping("/orders")
     public OrderResponse createOrder( @RequestBody OrderCreateRequest request){

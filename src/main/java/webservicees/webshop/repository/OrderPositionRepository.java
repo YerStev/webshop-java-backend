@@ -5,6 +5,7 @@ import webservicees.webshop.model.OrderPositionResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderPositionRepository {
@@ -13,5 +14,11 @@ public class OrderPositionRepository {
 
     public void save(OrderPositionResponse orderPositionResponse) {
         orderPositions.add(orderPositionResponse);
+    }
+
+    public List<OrderPositionResponse> findAllByOrderIds(List<String> orderIds) {
+        return orderPositions.stream()
+                .filter(o -> orderIds.contains(o.getOrderId()))
+                .collect(Collectors.toList());
     }
 }

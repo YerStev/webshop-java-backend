@@ -28,11 +28,7 @@ public class OrderService {
     }
 
     public OrderResponse createOrder(OrderCreateRequest request) throws WebshopException {
-        Optional<CustomerResponse> customer = customerRepository.findById(request.getCustomerId());
-
-        if (customer.isEmpty())
-            throw new WebshopException("Customer with " + request.getCustomerId() + " id not found", HttpStatus.BAD_REQUEST);
-
+        customerRepository.findById(request.getCustomerId());
         return orderRepository.save(request);
     }
 
@@ -48,6 +44,7 @@ public class OrderService {
         OrderPositionResponse orderPositionResponse = new OrderPositionResponse(
                 UUID.randomUUID().toString(),
                 request.getProductId(),
+                orderId,
                 request.getQuantity());
 
         orderPositionRepository.save(orderPositionResponse);

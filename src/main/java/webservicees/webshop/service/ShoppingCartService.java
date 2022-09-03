@@ -2,7 +2,6 @@ package webservicees.webshop.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.PatternMatchUtils;
 import webservicees.webshop.exceptions.IdNotFoundException;
 import webservicees.webshop.model.OrderPositionResponse;
 import webservicees.webshop.model.OrderResponse;
@@ -39,11 +38,13 @@ public class ShoppingCartService {
         long totalAmount = calculateSumForCart(orderPositions, deliveryCost);
         return new ShoppingCartResponse(customerId, orderPositions, totalAmount, deliveryCost, "STANDARD" );
     }
-    private long calculateSumForCart(List <OrderPositionResponse> orderPositions, long deliveryCost){
+    public long calculateSumForCart(List <OrderPositionResponse> orderPositions, long deliveryCost){
         List<Long> positionAmounts = orderPositions.stream()
                 .map(o -> {
                             ProductResponse product = productRepository.findById(o.getProductId())
                                     .orElseThrow(() -> new IdNotFoundException("Product with id " + o.getProductId() + "not found", HttpStatus.BAD_REQUEST));
+                            if(o.getQuantity() <= 0)
+                                throw new IllegalArgumentException("OrderPosition with quantity of " + o.getQuantity() + " is not allowed");
                             return o.getQuantity() * product.getPriceInCent();
                         }
                 ).collect(Collectors.toList());

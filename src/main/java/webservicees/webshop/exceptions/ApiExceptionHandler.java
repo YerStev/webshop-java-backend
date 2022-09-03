@@ -19,6 +19,8 @@ public class ApiExceptionHandler {
 
      if(e instanceof  WebshopException)
          code = ((WebshopException) e).getStatusCode();
+     else if (e instanceof  IllegalArgumentException)
+        code = HttpStatus.BAD_REQUEST;
      // weitere Exceptions mit else if prüfen
      else{
          code = HttpStatus.INTERNAL_SERVER_ERROR;

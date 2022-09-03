@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductRepository {
 
-    List<ProductResponse> products = new ArrayList<>();
+    private List<ProductResponse> products = new ArrayList<>();
 
     public ProductRepository() {
         products.add(

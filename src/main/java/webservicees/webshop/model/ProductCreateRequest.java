@@ -25,7 +25,6 @@ public class ProductCreateRequest {
     }
 
     public ProductCreateRequest(
-            String id,
             String name,
             String description,
             int priceInCent,

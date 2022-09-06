@@ -10,7 +10,6 @@ import webservicees.webshop.model.ShoppingCartResponse;
 import webservicees.webshop.repository.OrderPositionRepository;
 import webservicees.webshop.repository.OrderRepository;
 import webservicees.webshop.repository.ProductRepository;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

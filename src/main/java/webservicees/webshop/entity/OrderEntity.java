@@ -1,10 +1,8 @@
 package webservicees.webshop.entity;
-import webservicees.webshop.model.OrderPositionResponse;
 import webservicees.webshop.model.OrderStatus;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Table(name = "orders")

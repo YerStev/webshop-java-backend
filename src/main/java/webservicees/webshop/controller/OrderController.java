@@ -14,7 +14,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public OrderResponse createOrder(@RequestBody OrderCreateRequest request){
+    public CreateOrderResponse createOrder(@RequestBody OrderCreateRequest request){
             return orderService.createOrder(request);
     }
 
@@ -24,7 +24,13 @@ public class OrderController {
     }
 
     @PutMapping("/orders/{id}")
-    public OrderResponse updateOrder(@PathVariable String id, @RequestBody OrderUpdateRequest request){
+    public CreateOrderResponse updateOrder(@PathVariable String id, @RequestBody OrderUpdateRequest request){
         return orderService.updateOrder(id, request);
     }
+
+    @GetMapping("/orders/{id}")
+    public GetOrderResponse getOrder(@PathVariable String id){
+        return orderService.getOrder(id);
+    }
+
 }

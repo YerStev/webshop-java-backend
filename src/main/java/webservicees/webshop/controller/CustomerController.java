@@ -26,7 +26,7 @@ public class CustomerController {
     public CustomerResponse getCustomerById(@PathVariable String id){
         Optional<CustomerEntity> customer = customerRepository.findById(id);
         if(customer.isEmpty())
-            throw new WebshopException("Order with " + id + " id not found", HttpStatus.BAD_REQUEST);
+            throw new WebshopException("Customer with " + id + " id not found", HttpStatus.BAD_REQUEST);
         return new CustomerResponse(
                 customer.get().getId(),
                 customer.get().getFirstName(),

@@ -1,22 +1,31 @@
-package webservicees.webshop.model;
+package webservicees.webshop.entity;
+import webservicees.webshop.model.OrderPositionResponse;
+import webservicees.webshop.model.OrderStatus;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class OrderResponse {
+@Entity
+@Table(name = "orders")
+public class OrderEntity {
+    @Id
     private String id;
     private String customerId;
     private Timestamp orderTime;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
-    private List<OrderPositionResponse> orderPositions;
 
-    public OrderResponse(String id, String customerId, Timestamp orderTime, OrderStatus status, List<OrderPositionResponse> orderPositions) {
+    public OrderEntity(String id, String customerId, Timestamp orderTime, OrderStatus status) {
         this.id = id;
         this.customerId = customerId;
         this.orderTime = orderTime;
         this.status = status;
-        this.orderPositions = orderPositions;
     }
+
+    public OrderEntity() {
+    }
+
 
     public String getId() {
         return id;
@@ -34,10 +43,4 @@ public class OrderResponse {
         return status;
     }
 
-    public List<OrderPositionResponse> getOrderPositions() {
-        return orderPositions;
-    }
-
 }
-
-

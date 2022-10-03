@@ -1,4 +1,4 @@
-package webservicees.webshop.exceptions;
+package webservicees.webshop.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

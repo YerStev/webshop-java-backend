@@ -1,15 +1,12 @@
 package webservicees.webshop.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import webservicees.webshop.model.OrderPositionResponse;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import webservicees.webshop.entity.OrderPositionEntity;
 
 @Service
-public class OrderPositionRepository {
-
+public interface IOrderPositionRepository extends JpaRepository<OrderPositionEntity, String> {
+/*
     List<OrderPositionResponse> orderPositions = new ArrayList<>();
 
     public void save(OrderPositionResponse orderPositionResponse) {
@@ -20,5 +17,7 @@ public class OrderPositionRepository {
         return orderPositions.stream()
                 .filter(o -> orderIds.contains(o.getOrderId()))
                 .collect(Collectors.toList());
-    }
+    }*/
+
+
 }

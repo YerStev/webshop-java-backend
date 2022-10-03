@@ -1,13 +1,7 @@
 package webservicees.webshop.controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import webservicees.webshop.model.OrderCreateRequest;
-import webservicees.webshop.model.OrderPositionCreateRequest;
-import webservicees.webshop.model.OrderPositionResponse;
-import webservicees.webshop.model.OrderResponse;
+import org.springframework.web.bind.annotation.*;
+import webservicees.webshop.model.*;
 import webservicees.webshop.service.OrderService;
 
 @RestController
@@ -29,5 +23,8 @@ public class OrderController {
         return orderService.createPositionForOrder(orderId, request);
     }
 
-
+    @PutMapping("/orders/{id}")
+    public OrderResponse updateOrder(@PathVariable String id, @RequestBody OrderUpdateRequest request){
+        return orderService.updateOrder(id, request);
+    }
 }

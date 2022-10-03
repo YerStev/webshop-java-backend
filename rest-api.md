@@ -36,5 +36,9 @@ POST /api/orders
 Füge Produkt zu Bestellung hinzu
 PUT /api/orders/{id}/products
 
-Man kann Use Cases haben, die nicht dem Restkonzept folgen, z.B. login/logout wären keine Ressourcen, würde man aber trotzdem
+-Man kann Use Cases haben, die nicht dem Restkonzept folgen, z.B. login/logout wären keine Ressourcen, würde man aber trotzdem
 als Endpunkte definieren
+
+-Tags updaten/löschen über Subressourcen  
+-Partielle Updates über PUT, wenn Attribut "" empty String dann gelöscht, 
+nichts mitgeschickt -> erhaltet man null (wegen Jackson Parser)

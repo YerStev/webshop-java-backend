@@ -1,8 +1,6 @@
-package webservicees.webshop.exceptions;
+package webservicees.webshop.exception;
 
 import org.springframework.http.HttpStatus;
-
-import java.util.function.Supplier;
 
 public class IdNotFoundException extends WebshopException {
 

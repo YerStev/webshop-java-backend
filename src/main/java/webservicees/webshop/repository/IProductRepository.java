@@ -1,16 +1,11 @@
 package webservicees.webshop.repository;
 
-import org.springframework.stereotype.Service;
-import webservicees.webshop.model.ProductCreateRequest;
-import webservicees.webshop.model.ProductResponse;
+import org.springframework.data.jpa.repository.JpaRepository;
+import webservicees.webshop.entity.ProductEntity;
 
-import java.util.*;
-import java.util.stream.Collectors;
+public interface IProductRepository extends JpaRepository<ProductEntity, String> {
 
-@Service
-public class ProductRepository {
-
-    private List<ProductResponse> products = new ArrayList<>();
+/*    private List<ProductResponse> products = new ArrayList<>();
 
     public ProductRepository() {
         products.add(
@@ -74,13 +69,10 @@ public class ProductRepository {
                 .collect(Collectors.toList());
     }
 
-    public ProductResponse save(ProductCreateRequest request) {
-        ProductResponse response = new ProductResponse(UUID.randomUUID().toString(),
-                request.getName(),
-                request.getDescription(),
-                request.getPriceInCent(),
-                request.getTags());
+    public ProductResponse save(ProductResponse response) {
         products.add(response);
         return response;
-    }
+    }*/
+
+
 }

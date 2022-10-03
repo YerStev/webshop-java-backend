@@ -46,12 +46,33 @@
 			"response": []
 		},
 		{
+			"name": "GET customer shopping cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/1/shoppingcart",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"1",
+						"shoppingcart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET product by id",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/products/8c54ba52-ddab-4866-a8df-5c596d900497",
+					"raw": "localhost:8080/api/products/8e05766c-7cf8-47d6-b0b6-236534a6de24",
 					"host": [
 						"localhost"
 					],
@@ -59,7 +80,7 @@
 					"path": [
 						"api",
 						"products",
-						"8c54ba52-ddab-4866-a8df-5c596d900497"
+						"8e05766c-7cf8-47d6-b0b6-236534a6de24"
 					],
 					"query": [
 						{
@@ -121,6 +142,35 @@
 			"response": []
 		},
 		{
+			"name": "PUT product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"priceInCent\": 666\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/products/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "POST order",
 			"request": {
 				"method": "POST",
@@ -149,13 +199,13 @@
 			"response": []
 		},
 		{
-			"name": "POST order position",
+			"name": "PUT order",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"productId\": \"978e01e1-f56e-48bc-a606-020272d6ca0e\",\n\"quantity\": 5\n}",
+					"raw": "{\n    \"orderStatus\": \"DELIVERED\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -163,7 +213,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/orders/0d4b59c1-d14e-4aeb-a8d9-4a08bb251251/positions",
+					"raw": "localhost:8080/api/orders/1",
 					"host": [
 						"localhost"
 					],
@@ -171,7 +221,36 @@
 					"path": [
 						"api",
 						"orders",
-						"0d4b59c1-d14e-4aeb-a8d9-4a08bb251251",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST order position",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"productId\": \"6af9147c-892c-403a-b9c3-6312ae05e243\",\n\"quantity\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/orders/f9b40d01-3999-47b3-bbc5-040ebd173029/positions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"f9b40d01-3999-47b3-bbc5-040ebd173029",
 						"positions"
 					]
 				}

@@ -2,12 +2,12 @@ package webservicees.webshop;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import webservicees.webshop.exceptions.IdNotFoundException;
+import webservicees.webshop.entity.ProductEntity;
+import webservicees.webshop.exception.IdNotFoundException;
 import webservicees.webshop.model.OrderPositionResponse;
-import webservicees.webshop.model.ProductResponse;
-import webservicees.webshop.repository.OrderPositionRepository;
-import webservicees.webshop.repository.OrderRepository;
-import webservicees.webshop.repository.ProductRepository;
+import webservicees.webshop.repository.IOrderRepository;
+import webservicees.webshop.repository.IOrderPositionRepository;
+import webservicees.webshop.repository.IProductRepository;
 import webservicees.webshop.service.ShoppingCartService;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -22,14 +22,14 @@ import static org.mockito.Mockito.mock;
 
 public class ShoppingCartServiceTest {
     private ShoppingCartService service;
-    private ProductRepository productRepository;
+    private IProductRepository productRepository;
 
     @BeforeEach
     public void setupTest(){
-        productRepository = mock(ProductRepository.class);
+        productRepository = mock(IProductRepository.class);
         service = new ShoppingCartService(
-                mock(OrderRepository.class),
-                mock(OrderPositionRepository.class),
+                mock(IOrderRepository.class),
+                mock(IOrderPositionRepository.class),
                 productRepository
         );
     }
@@ -46,7 +46,7 @@ public class ShoppingCartServiceTest {
     @Test
     public void calculateSumWithOneProductSumPriceOfProduct (){
        // given
-        ProductResponse savedProduct = new ProductResponse(UUID.randomUUID().toString(), "", "", 1000, new ArrayList<>());
+        ProductEntity savedProduct = new ProductEntity (UUID.randomUUID().toString(), "", "", 1000, new ArrayList<>());
 
         // wenn mock findById aufruft, wird savedProduct zurückgegeben, ist also hardgecoded, das Verhalten des mocks wird definiert
         given(productRepository.findById(savedProduct.getId())).willReturn(Optional.of(savedProduct));
@@ -60,15 +60,15 @@ public class ShoppingCartServiceTest {
         assertThat(result).isEqualTo(1500);
     }
 
-    private static void addOrderPosition(ArrayList<OrderPositionResponse> orderPositions, ProductResponse savedProduct,  int quantity) {
+    private static void addOrderPosition(ArrayList<OrderPositionResponse> orderPositions, ProductEntity savedProduct,  int quantity) {
         orderPositions.add(new OrderPositionResponse("", savedProduct.getId(), "", quantity));
     }
 
     @Test
     public void calculateSumWithTwoProductSumPriceOfProducts (){
         // given
-        ProductResponse savedProduct1 = new ProductResponse(UUID.randomUUID().toString(), "", "", 1000, new ArrayList<>());
-        ProductResponse savedProduct2 = new ProductResponse(UUID.randomUUID().toString(), "", "", 2000, new ArrayList<>());
+        ProductEntity savedProduct1 = new ProductEntity(UUID.randomUUID().toString(), "", "", 1000, new ArrayList<>());
+        ProductEntity savedProduct2 = new ProductEntity(UUID.randomUUID().toString(), "", "", 2000, new ArrayList<>());
 
         given(productRepository.findById(savedProduct1.getId())).willReturn(Optional.of(savedProduct1));
         given(productRepository.findById(savedProduct2.getId())).willReturn(Optional.of(savedProduct2));
@@ -85,7 +85,7 @@ public class ShoppingCartServiceTest {
     @Test
     public void calculateSumWithNotExistingProductThrowsException (){
         // given
-        ProductResponse notSavedProduct = new ProductResponse("", "", "", 100, new ArrayList<>());
+        ProductEntity notSavedProduct = new ProductEntity("", "", "", 100, new ArrayList<>());
         ArrayList<OrderPositionResponse> orderPositions = new ArrayList<>();
         addOrderPosition(orderPositions, notSavedProduct, 1);
 
@@ -99,8 +99,8 @@ public class ShoppingCartServiceTest {
     @Test
     public void testThatCalculateSumWithNegativeQuantityThrowsException (){
         // given
-        ProductResponse savedProduct1 = new ProductResponse(UUID.randomUUID().toString(), "", "", 1000, new ArrayList<>());
-        ProductResponse savedProduct2 = new ProductResponse(UUID.randomUUID().toString(), "", "", 2000, new ArrayList<>());
+        ProductEntity savedProduct1 = new ProductEntity(UUID.randomUUID().toString(), "", "", 1000, new ArrayList<>());
+        ProductEntity savedProduct2 = new ProductEntity(UUID.randomUUID().toString(), "", "", 2000, new ArrayList<>());
 
 
         given(productRepository.findById(savedProduct1.getId())).willReturn(Optional.of(savedProduct1));

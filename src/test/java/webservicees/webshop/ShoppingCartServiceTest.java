@@ -6,7 +6,6 @@ import webservicees.webshop.entity.ProductEntity;
 import webservicees.webshop.exception.IdNotFoundException;
 import webservicees.webshop.model.OrderPositionResponse;
 import webservicees.webshop.repository.IOrderRepository;
-import webservicees.webshop.repository.IOrderPositionRepository;
 import webservicees.webshop.repository.IProductRepository;
 import webservicees.webshop.service.ShoppingCartService;
 import java.util.ArrayList;
@@ -29,7 +28,6 @@ public class ShoppingCartServiceTest {
         productRepository = mock(IProductRepository.class);
         service = new ShoppingCartService(
                 mock(IOrderRepository.class),
-                mock(IOrderPositionRepository.class),
                 productRepository
         );
     }
@@ -61,7 +59,7 @@ public class ShoppingCartServiceTest {
     }
 
     private static void addOrderPosition(ArrayList<OrderPositionResponse> orderPositions, ProductEntity savedProduct,  int quantity) {
-        orderPositions.add(new OrderPositionResponse("", savedProduct.getId(), "", quantity));
+        orderPositions.add(new OrderPositionResponse("", savedProduct.getId(), quantity));
     }
 
     @Test

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import webservicees.webshop.model.*;
 import webservicees.webshop.repository.ICustomerRepository;
 import webservicees.webshop.repository.IOrderRepository;
-import webservicees.webshop.repository.IOrderPositionRepository;
 import webservicees.webshop.repository.IProductRepository;
 
 import java.sql.Timestamp;
@@ -26,14 +25,12 @@ public class OrderService {
     private final IProductRepository productRepository;
     private final IOrderRepository orderRepository;
     private final ICustomerRepository customerRepository;
-    private final IOrderPositionRepository orderPositionRepository;
 
 
-    public OrderService(IProductRepository productRepository, IOrderRepository orderRepository, ICustomerRepository customerRepository, IOrderPositionRepository orderPositionRepository) {
+    public OrderService(IProductRepository productRepository, IOrderRepository orderRepository, ICustomerRepository customerRepository) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
-        this.orderPositionRepository = orderPositionRepository;
     }
 
     public CreateOrderResponse createOrder(OrderCreateRequest request) throws WebshopException {
@@ -45,7 +42,8 @@ public class OrderService {
                 UUID.randomUUID().toString(),
                 request.getCustomerId(),
                 new Timestamp(System.currentTimeMillis()),
-                OrderStatus.NEW
+                OrderStatus.NEW,
+                new ArrayList<>()
         );
         OrderEntity savedOrder = orderRepository.save(order);
 
@@ -71,18 +69,18 @@ public class OrderService {
         if (product.isEmpty())
             throw new WebshopException("Product with " + request.getProductId() + " id not found", HttpStatus.BAD_REQUEST);
 
-        OrderPositionEntity orderPositionResponse = new OrderPositionEntity(
+        OrderPositionEntity orderPositionEntity = new OrderPositionEntity(
                 UUID.randomUUID().toString(),
                 request.getProductId(),
-                orderId,
                 request.getQuantity());
 
-        OrderPositionEntity saved = orderPositionRepository.save(orderPositionResponse);
-        return mapToOrderPositionResponse(saved);
+        order.get().getOrderPositions().add(orderPositionEntity);
+        orderRepository.save(order.get());
+        return mapToOrderPositionResponse(orderPositionEntity);
     }
 
     public static OrderPositionResponse mapToOrderPositionResponse(OrderPositionEntity saved) {
-        return new OrderPositionResponse(saved.getId(), saved.getProductId(), saved.getOrderId(), saved.getQuantity());
+        return new OrderPositionResponse(saved.getId(), saved.getProductId(), saved.getQuantity());
     }
 
     public CreateOrderResponse updateOrder(String id, OrderUpdateRequest request) {
@@ -92,7 +90,9 @@ public class OrderService {
                 order.getId(),
                 order.getCustomerId(),
                 order.getOrderTime(),
-                order.getStatus() == null ? order.getStatus() : request.getStatus()
+                order.getStatus() == null ? order.getStatus() : request.getStatus(),
+                order.getOrderPositions()
+
         );
         OrderEntity saved = orderRepository.save(updated);
         return mapToResponse(saved);
@@ -111,22 +111,21 @@ public class OrderService {
                         ("Customer with " + order.getCustomerId() + " id not found",
                                 HttpStatus.BAD_REQUEST));
 
-        List<GetOrderPositionResponse> positions = orderPositionRepository
-                .findAll()
+        List<GetOrderPositionResponse> positions = order
+                .getOrderPositions()
                 .stream()
-                .filter(orderPositions -> orderPositions.getOrderId().equals(id))
-                .map(foundOrderPositions -> {
+                .map(foundEntityOrderPositions -> {
                     ProductEntity product = productRepository
-                            .findById(foundOrderPositions.getProductId())
+                            .findById(foundEntityOrderPositions.getProductId())
                             .orElseThrow(() -> new WebshopException("Product with " + id + " id not found found", HttpStatus.BAD_REQUEST));
-                    return new GetOrderPositionResponse(foundOrderPositions.getId(),
+                    return new GetOrderPositionResponse(foundEntityOrderPositions.getId(),
                             new ProductResponse(product.getId(),
                                     product.getName(),
                                     product.getDescription(),
                                     product.getPriceInCent(),
                                     product.getTags()
                             ),
-                            foundOrderPositions.getQuantity());
+                            foundEntityOrderPositions.getQuantity());
                 })
                 .collect(Collectors.toList());
 

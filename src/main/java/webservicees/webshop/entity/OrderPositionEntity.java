@@ -1,24 +1,18 @@
 package webservicees.webshop.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
-@Entity
-@Table(name = "order_positions")
+@Embeddable
 public class OrderPositionEntity {
-    @Id
         private String id;
         private String productId;
-        private String orderId;
         private long quantity;
 
 
 
-        public OrderPositionEntity(String id, String productId, String orderId, long quantity) {
+        public OrderPositionEntity(String id, String productId,  long quantity) {
             this.id = id;
             this.productId = productId;
-            this.orderId = orderId;
             this.quantity = quantity;
         }
 
@@ -26,11 +20,19 @@ public class OrderPositionEntity {
 
     }
 
-    public String getOrderId() {
-            return orderId;
-        }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-        public String getId() {
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getId() {
             return id;
         }
 

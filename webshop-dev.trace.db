@@ -1392,3 +1392,14 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /Users/stevenhuy
 	at org.h2.mvstore.FileStore.open(FileStore.java:163)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
 	... 28 more
+2022-10-07 08:38:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "ORDERS" nicht gefunden
+Table "ORDERS" not found; SQL statement:
+alter table orders
+    add constraint orders_customer_id_fk
+        foreign key (customer_id)
+            references customers [42102-210]
+2022-10-07 08:39:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "CUSTOMERS" nicht gefunden
+Table "CUSTOMERS" not found; SQL statement:
+DROP TABLE customers [42102-210]

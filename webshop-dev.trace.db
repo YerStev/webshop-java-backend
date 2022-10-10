@@ -1403,3 +1403,9 @@ alter table orders
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "CUSTOMERS" nicht gefunden
 Table "CUSTOMERS" not found; SQL statement:
 DROP TABLE customers [42102-210]
+2022-10-10 19:51:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: (Message 42S02 not found); SQL statement:
+alter table orders
+    add constraint orders_customer_id_fk
+        foreign key (customer_id)
+            references customers [42102-210]

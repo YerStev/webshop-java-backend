@@ -11,13 +11,16 @@ public class CustomerEntity {
     private String id;
     private String firstName;
     private String lastName;
+    private String salutation;
     private String email;
 
-    public CustomerEntity(String id, String firstName, String lastName, String email) {
+    public CustomerEntity(String id, String firstName, String lastName, String salutation, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.salutation = salutation;
         this.email = email;
+
     }
 
     public String getId() {
@@ -37,5 +40,9 @@ public class CustomerEntity {
     }
 
     public CustomerEntity() {
+    }
+
+    public String getSalutation() {
+        return salutation;
     }
 }
